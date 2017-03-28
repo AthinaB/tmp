@@ -65,7 +65,6 @@ paths:
     get:
       summary: Retrieve user data
       description: |
-        Se
         Login is required.
       operationId: GetUserData
       parameters:
