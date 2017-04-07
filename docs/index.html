@@ -710,6 +710,69 @@ margin-bottom: 20px;
   <script>
     // Script section to load models into a JS Var
     var defs = {}
+    defs.City = {
+  "type" : "object",
+  "properties" : {
+    "id" : {
+      "type" : "integer"
+    },
+    "name" : {
+      "$ref" : "#/definitions/Multilanguage"
+    },
+    "prefecture" : {
+      "$ref" : "#/definitions/City_prefecture"
+    }
+  }
+};
+    defs.City_prefecture = {
+  "properties" : {
+    "id" : {
+      "type" : "integer"
+    },
+    "name" : {
+      "$ref" : "#/definitions/Multilanguage"
+    }
+  }
+};
+    defs.Country = {
+  "type" : "object",
+  "properties" : {
+    "id" : {
+      "type" : "integer"
+    },
+    "alpha2" : {
+      "type" : "string"
+    },
+    "alpha3" : {
+      "type" : "string"
+    },
+    "name" : {
+      "$ref" : "#/definitions/Multilanguage"
+    }
+  }
+};
+    defs.Multilanguage = {
+  "type" : "object",
+  "properties" : {
+    "el" : {
+      "type" : "string"
+    },
+    "en" : {
+      "type" : "string"
+    }
+  }
+};
+    defs.Region = {
+  "type" : "object",
+  "properties" : {
+    "id" : {
+      "type" : "integer"
+    },
+    "name" : {
+      "$ref" : "#/definitions/Multilanguage"
+    }
+  }
+};
     defs.User = {
   "type" : "object",
   "properties" : {
@@ -786,20 +849,20 @@ margin-bottom: 20px;
       "type" : "string"
     },
     "birthContry" : {
-      "$ref" : "#/definitions/User_bloodDonor_data_birthContry"
+      "$ref" : "#/definitions/Country"
     },
     "birthDate" : {
       "type" : "string",
       "format" : "date"
     },
     "birthRegion" : {
-      "$ref" : "#/definitions/User_bloodDonor_data_birthRegion"
+      "$ref" : "#/definitions/Region"
     },
     "bloodGroup" : {
       "type" : "string"
     },
     "city" : {
-      "$ref" : "#/definitions/User_bloodDonor_data_city"
+      "$ref" : "#/definitions/City"
     },
     "education" : {
       "type" : "string"
@@ -832,62 +895,13 @@ margin-bottom: 20px;
       "type" : "string"
     },
     "ssnCountry" : {
-      "$ref" : "#/definitions/User_bloodDonor_data_birthContry"
+      "$ref" : "#/definitions/Country"
     },
     "street" : {
       "type" : "string"
     },
     "streetNumber" : {
       "type" : "integer"
-    }
-  }
-};
-    defs.User_bloodDonor_data_birthContry = {
-  "properties" : {
-    "id" : {
-      "type" : "integer"
-    },
-    "alpha2" : {
-      "type" : "string"
-    },
-    "alpha3" : {
-      "type" : "string"
-    },
-    "name" : {
-      "$ref" : "#/definitions/User_bloodDonor_data_birthContry_name"
-    }
-  }
-};
-    defs.User_bloodDonor_data_birthContry_name = {
-  "properties" : {
-    "el" : {
-      "type" : "string"
-    },
-    "en" : {
-      "type" : "string"
-    }
-  }
-};
-    defs.User_bloodDonor_data_birthRegion = {
-  "properties" : {
-    "id" : {
-      "type" : "integer"
-    },
-    "name" : {
-      "$ref" : "#/definitions/User_bloodDonor_data_birthContry_name"
-    }
-  }
-};
-    defs.User_bloodDonor_data_city = {
-  "properties" : {
-    "id" : {
-      "type" : "integer"
-    },
-    "name" : {
-      "$ref" : "#/definitions/User_bloodDonor_data_birthContry_name"
-    },
-    "prefecture" : {
-      "$ref" : "#/definitions/User_bloodDonor_data_birthRegion"
     }
   }
 };
@@ -1772,7 +1786,7 @@ except ApiException as e:
                         <p class="marked">tba</p>
                         <p></p>
                         <br />
-                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/blood-donor-registry-web-public/rest/blooddonor/8616993</span></code></pre>
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/blood-donor-registry-web-public/rest/blooddonor/{donorID}</span></code></pre>
                         <p>
                           <h3>Usage and SDK Samples</h3>
                         </p>
@@ -1792,7 +1806,7 @@ except ApiException as e:
 
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-Default-tba2-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X <span style="text-transform: uppercase;">get</span> "https://service.blooddonorregistry.gr/blood-donor-registry-web-public/rest/blooddonor/8616993"</code></pre>
+                            <pre class="prettyprint"><code class="language-bsh">curl -X <span style="text-transform: uppercase;">get</span> "https://service.blooddonorregistry.gr/blood-donor-registry-web-public/rest/blooddonor/{donorID}"</code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Default-tba2-0-java">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
@@ -1808,8 +1822,9 @@ public class DefaultApiExample {
     public static void main(String[] args) {
         
         DefaultApi apiInstance = new DefaultApi();
+        String donorID = donorID_example; // String | 
         try {
-            Object result = apiInstance.tba2();
+            Object result = apiInstance.tba2(donorID);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DefaultApi#tba2");
@@ -1826,8 +1841,9 @@ public class DefaultApiExample {
 
     public static void main(String[] args) {
         DefaultApi apiInstance = new DefaultApi();
+        String donorID = donorID_example; // String | 
         try {
-            Object result = apiInstance.tba2();
+            Object result = apiInstance.tba2(donorID);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling DefaultApi#tba2");
@@ -1841,12 +1857,13 @@ public class DefaultApiExample {
   <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
   </div> -->
                             <div class="tab-pane" id="examples-Default-tba2-0-objc">
-                              <pre class="prettyprint"><code class="language-cpp">
+                              <pre class="prettyprint"><code class="language-cpp">String *donorID = donorID_example; // 
+
 DefaultApi *apiInstance = [[DefaultApi alloc] init];
 
 // tba
-[apiInstance tba2WithCompletionHandler: 
-              ^(Object output, NSError* error) {
+[apiInstance tba2With:donorID
+              completionHandler: ^(Object output, NSError* error) {
                             if (output) {
                                 NSLog(@"%@", output);
                             }
@@ -1862,6 +1879,9 @@ DefaultApi *apiInstance = [[DefaultApi alloc] init];
 
 var api = new BloodDonorRegistryForDonorsApplication.DefaultApi()
 
+var donorID = donorID_example; // {String} 
+
+
 var callback = function(error, data, response) {
   if (error) {
     console.error(error);
@@ -1869,7 +1889,7 @@ var callback = function(error, data, response) {
     console.log('API called successfully. Returned data: ' + data);
   }
 };
-api.tba2(callback);
+api.tba2(donorID, callback);
 </code></pre>
                             </div>
 
@@ -1891,11 +1911,12 @@ namespace Example
         {
             
             var apiInstance = new DefaultApi();
+            var donorID = donorID_example;  // String | 
 
             try
             {
                 // tba
-                Object result = apiInstance.tba2();
+                Object result = apiInstance.tba2(donorID);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -1912,9 +1933,10 @@ namespace Example
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api_instance = new Swagger\Client\Api\DefaultApi();
+$donorID = donorID_example; // String | 
 
 try {
-    $result = $api_instance->tba2();
+    $result = $api_instance->tba2($donorID);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling DefaultApi->tba2: ', $e->getMessage(), PHP_EOL;
@@ -1928,9 +1950,10 @@ use WWW::SwaggerClient::Configuration;
 use WWW::SwaggerClient::DefaultApi;
 
 my $api_instance = WWW::SwaggerClient::DefaultApi->new();
+my $donorID = donorID_example; # String | 
 
 eval { 
-    my $result = $api_instance->tba2();
+    my $result = $api_instance->tba2(donorID => $donorID);
     print Dumper($result);
 };
 if ($@) {
@@ -1947,10 +1970,11 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = swagger_client.DefaultApi()
+donorID = donorID_example # String | 
 
 try: 
     # tba
-    api_response = api_instance.tba2()
+    api_response = api_instance.tba2(donorID)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DefaultApi->tba2: %s\n" % e)</code></pre>
@@ -1959,6 +1983,45 @@ except ApiException as e:
 
                           <h2>Parameters</h2>
 
+                            <div class="methodsubtabletitle">Path parameters</div>
+                            <table id="methodsubtable">
+                                <tr>
+                                  <th width="150px">Name</th>
+                                  <th>Description</th>
+                                </tr>
+                                  <tr><td style="width:150px;">donorID*</td>
+<td>
+
+
+<script>
+												$(document).ready(function() {
+													var schemaWrapper = {
+  "name" : "donorID",
+  "in" : "path",
+  "required" : true,
+  "type" : "string"
+};
+													var schema = schemaWrapper;
+
+
+
+
+													var view = new JSONSchemaView(schema,1);
+													var result = $('#d2e199_tba2_donorID');
+													result.empty();
+													result.append(view.render());
+
+
+
+
+
+												});
+												</script>
+												<div id="d2e199_tba2_donorID"></div>
+</td>
+</tr>
+
+                            </table>
 
 
 
@@ -2025,7 +2088,7 @@ except ApiException as e:
           </div>
           <div id="generator">
             <div class="content">
-              Generated 2017-03-29T09:34:27.063Z
+              Generated 2017-04-07T07:53:32.954Z
             </div>
           </div>
       </div>
